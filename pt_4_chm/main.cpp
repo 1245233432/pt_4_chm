@@ -33,7 +33,6 @@ int main() {
 		double I_h4 = quadrature.calculate_integral(begin, end, N * 4, phi);
 
 		double err_h = I_true - I_h;
-		double err_h2 = I_true - I_h2;
 		double runge = quadrature.runge_estimate(I_h, I_h2, k);
 		double I_R = quadrature.richardson_refinement(I_h, I_h2, k);
 		double err_R = I_true - I_R;
@@ -48,6 +47,8 @@ int main() {
 		std::cout << "I_h4 = " << I_h4 << std::endl;
 		std::cout << "|I_true - I_h| = " << err_h << std::endl;
 		std::cout << "Погрешность по Рунге: " << runge << std::endl;
+		std::cout << "Главная часть погрешности по Рунге: " << (I_h2 - I_h) / (pow(2.0, k) - 1.0) << std::endl;
+		std::cout << "(I* - I_h) / (I* - I_h2) = " << (I_true - I_h) / (I_true - I_h2) << std::endl;
 		std::cout << "Уточнение по Ричардсону I_R = "<< I_R << std::endl;
 		std::cout << "|I_true - I_R| = " << err_R << std::endl;
 		std::cout << "Оценка порядка аппроксимации k при шаге h/2: " << appro_estimation_h2 << std::endl;
