@@ -15,7 +15,6 @@ namespace com_methods {
 																	  // func - подынтегральная f(x)
 		double runge_estimate(const double& I_h, const double& I_h2, const int& k) const; // метод для оценки погрешности по правилу Рунге
 		double richardson_refinement(const double& I_h, const double& I_h2, const int& k) const; // уточнение по Ричардсону
-		bool is_runge_applicable(const double& I_2h, const double& I_h, const double& I_h2, const int& k) const; // проверка на применимость уточнения по Ричардсону
 		double estimate_order(const double& I_h, const double& I_h2, const double& I_true) const; // оценка порядка аппроксимации метода относительно шага сеточного разбиения
 	};
 }

@@ -81,12 +81,6 @@ namespace com_methods {
 		return I_h2 + (I_h2 - I_h) / (pow(2.0, k) - 1.0);
 	}
 
-	bool integration_scheme_interval::is_runge_applicable(const double& I_2h, const double& I_h, const double& I_h2, const int& k) const {
-		double a = fabs(1.0 - (1.0 / pow(2.0, k)) * (I_2h - I_h2) / (I_h - I_h2));
-		double b = fabs(pow(2.0, k) * (I_h - I_h2) / (I_2h - I_h2) - 1.0);
-		return (a < 0.1) || (b < 0.1);
-	}
-
 	double integration_scheme_interval::estimate_order(const double& I_h, const double& I_h2, const double& I_true) const {
 		double denominator = I_true - I_h2;
 		if (fabs(denominator) < 1e-15) {
