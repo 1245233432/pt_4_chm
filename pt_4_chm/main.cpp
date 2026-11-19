@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <iomanip>
 #include <functional>
 #include "point.h"
@@ -11,14 +11,14 @@ int main() {
 		return exp(p.x()) * cos(p.x());
 	};
 
-	const double I_true = 0.8309116713772953; // аналитическое значение интеграла от fi
+	const double I_true = 0.8309116713772953; // Р°РЅР°Р»РёС‚РёС‡РµСЃРєРѕРµ Р·РЅР°С‡РµРЅРёРµ РёРЅС‚РµРіСЂР°Р»Р° РѕС‚ fi
 
 	com_methods::Point begin(0.07, 0.0, 0.0);
 	com_methods::Point end(0.69, 0.0, 0.0);
 
-	const int N = 1; // число сегментов
+	const int N = 1; // С‡РёСЃР»Рѕ СЃРµРіРјРµРЅС‚РѕРІ
 
-	com_methods::integration_scheme::integration_scheme_types schemes[] = { // выбранные схемы интегрирования
+	com_methods::integration_scheme::integration_scheme_types schemes[] = { // РІС‹Р±СЂР°РЅРЅС‹Рµ СЃС…РµРјС‹ РёРЅС‚РµРіСЂРёСЂРѕРІР°РЅРёСЏ
 		com_methods::integration_scheme::parab,
 		com_methods::integration_scheme::gauss3 };
 
@@ -41,17 +41,17 @@ int main() {
 		double appro_estimation_h4 = quadrature.estimate_order(I_h2, I_h4, I_true);
 
 		std::cout << std::scientific << std::setprecision(10);
-		std::cout << "Метод " << names[s] << std::endl;
+		std::cout << "РњРµС‚РѕРґ " << names[s] << std::endl;
 		std::cout << "h = " << (0.69 - 0.07) / N << std::endl;
 		std::cout << "I_h = " << I_h << std::endl;
 		std::cout << "I_h2 = " << I_h2 << std::endl;
 		std::cout << "I_h4 = " << I_h4 << std::endl;
 		std::cout << "|I_true - I_h| = " << err_h << std::endl;
-		std::cout << "Погрешность по Рунге: " << runge << std::endl;
-		std::cout << "Уточнение по Ричардсону I_R = "<< I_R << std::endl;
+		std::cout << "РџРѕРіСЂРµС€РЅРѕСЃС‚СЊ РїРѕ Р СѓРЅРіРµ: " << runge << std::endl;
+		std::cout << "РЈС‚РѕС‡РЅРµРЅРёРµ РїРѕ Р РёС‡Р°СЂРґСЃРѕРЅСѓ I_R = "<< I_R << std::endl;
 		std::cout << "|I_true - I_R| = " << err_R << std::endl;
-		std::cout << "Оценка порядка аппроксимации k при шаге h/2: " << appro_estimation_h2 << std::endl;
-		std::cout << "Оценка порядка аппроксимации k при шаге h/4: " << appro_estimation_h4 << std::endl;
+		std::cout << "РћС†РµРЅРєР° РїРѕСЂСЏРґРєР° Р°РїРїСЂРѕРєСЃРёРјР°С†РёРё k РїСЂРё С€Р°РіРµ h/2: " << appro_estimation_h2 << std::endl;
+		std::cout << "РћС†РµРЅРєР° РїРѕСЂСЏРґРєР° Р°РїРїСЂРѕРєСЃРёРјР°С†РёРё k РїСЂРё С€Р°РіРµ h/4: " << appro_estimation_h4 << std::endl;
 		std::cout << std::endl;
 
 	}
@@ -62,20 +62,20 @@ int main() {
 	double appro_estimation_h8 = quadrature.estimate_order(I_h4, I_h8, I_true);
 	std::cout << "I_h8 = " << I_h8 << std::endl;
 	std::cout << "|I_true - I_h8| = " << I_true - I_h8 << std::endl;
-	std::cout << "Оценка порядка аппроксимации k при шаге h/8: " << appro_estimation_h8 << std::endl << std::endl;
+	std::cout << "РћС†РµРЅРєР° РїРѕСЂСЏРґРєР° Р°РїРїСЂРѕРєСЃРёРјР°С†РёРё k РїСЂРё С€Р°РіРµ h/8: " << appro_estimation_h8 << std::endl << std::endl;
 
 	double I_h16 = quadrature.calculate_integral(begin, end, N * 16, phi);
 	double appro_estimation_h16 = quadrature.estimate_order(I_h8, I_h16, I_true);
 	std::cout << "I_h16 = " << I_h16 << std::endl;
 	std::cout << "|I_true - I_h16| = " << I_true - I_h16 << std::endl;
-	std::cout << "Оценка порядка аппроксимации k при шаге h/16: " << appro_estimation_h16 << std::endl << std::endl;
+	std::cout << "РћС†РµРЅРєР° РїРѕСЂСЏРґРєР° Р°РїРїСЂРѕРєСЃРёРјР°С†РёРё k РїСЂРё С€Р°РіРµ h/16: " << appro_estimation_h16 << std::endl << std::endl;
 
 
 	double I_h32 = quadrature.calculate_integral(begin, end, N * 32, phi);
 	double appro_estimation_h32 = quadrature.estimate_order(I_h16, I_h32, I_true);
 	std::cout << "I_h32 = " << I_h32 << std::endl;
 	std::cout << "|I_true - I_h32| = " << I_true - I_h32 << std::endl;
-	std::cout << "Оценка порядка аппроксимации k при шаге h/32: " << appro_estimation_h32 << std::endl << std::endl;
+	std::cout << "РћС†РµРЅРєР° РїРѕСЂСЏРґРєР° Р°РїРїСЂРѕРєСЃРёРјР°С†РёРё k РїСЂРё С€Р°РіРµ h/32: " << appro_estimation_h32 << std::endl << std::endl;
 
 	return 0;
 }
