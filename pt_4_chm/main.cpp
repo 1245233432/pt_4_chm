@@ -11,7 +11,7 @@ int main() {
 		return exp(p.x()) * cos(p.x());
 	};
 
-	const double I_true = 0.8309116714; // аналитическое значение интеграла от fi
+	const double I_true = 0.8309116713772953; // аналитическое значение интеграла от fi
 
 	com_methods::Point begin(0.07, 0.0, 0.0);
 	com_methods::Point end(0.69, 0.0, 0.0);
@@ -37,7 +37,8 @@ int main() {
 		double runge = quadrature.runge_estimate(I_h, I_h2, k);
 		double I_R = quadrature.richardson_refinement(I_h, I_h2, k);
 		double err_R = I_true - I_R;
-		double appro_estimation = quadrature.estimate_order(I_h, I_h2, I_true);
+		double appro_estimation_h2 = quadrature.estimate_order(I_h, I_h2, I_true);
+		double appro_estimation_h4 = quadrature.estimate_order(I_h2, I_h4, I_true);
 
 		std::cout << std::scientific << std::setprecision(10);
 		std::cout << "Метод " << names[s] << std::endl;
@@ -49,10 +50,32 @@ int main() {
 		std::cout << "Погрешность по Рунге: " << runge << std::endl;
 		std::cout << "Уточнение по Ричардсону I_R = "<< I_R << std::endl;
 		std::cout << "|I_true - I_R| = " << err_R << std::endl;
-		std::cout << "Оценка порядка аппроксимации k = " << appro_estimation << std::endl;
+		std::cout << "Оценка порядка аппроксимации k при шаге h/2: " << appro_estimation_h2 << std::endl;
+		std::cout << "Оценка порядка аппроксимации k при шаге h/4: " << appro_estimation_h4 << std::endl;
 		std::cout << std::endl;
 
 	}
+
+	com_methods::integration_scheme_interval quadrature(com_methods::integration_scheme::gauss3);
+	double I_h4 = quadrature.calculate_integral(begin, end, N * 4, phi);
+	double I_h8 = quadrature.calculate_integral(begin, end, N * 8, phi);
+	double appro_estimation_h8 = quadrature.estimate_order(I_h4, I_h8, I_true);
+	std::cout << "I_h8 = " << I_h8 << std::endl;
+	std::cout << "|I_true - I_h8| = " << I_true - I_h8 << std::endl;
+	std::cout << "Оценка порядка аппроксимации k при шаге h/8: " << appro_estimation_h8 << std::endl << std::endl;
+
+	double I_h16 = quadrature.calculate_integral(begin, end, N * 16, phi);
+	double appro_estimation_h16 = quadrature.estimate_order(I_h8, I_h16, I_true);
+	std::cout << "I_h16 = " << I_h16 << std::endl;
+	std::cout << "|I_true - I_h16| = " << I_true - I_h16 << std::endl;
+	std::cout << "Оценка порядка аппроксимации k при шаге h/16: " << appro_estimation_h16 << std::endl << std::endl;
+
+
+	double I_h32 = quadrature.calculate_integral(begin, end, N * 32, phi);
+	double appro_estimation_h32 = quadrature.estimate_order(I_h16, I_h32, I_true);
+	std::cout << "I_h32 = " << I_h32 << std::endl;
+	std::cout << "|I_true - I_h32| = " << I_true - I_h32 << std::endl;
+	std::cout << "Оценка порядка аппроксимации k при шаге h/32: " << appro_estimation_h32 << std::endl << std::endl;
 
 	return 0;
 }
